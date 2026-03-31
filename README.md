@@ -1,84 +1,116 @@
-<div align="center">
-
 # burp-quicknotes
 
-**Structured note templates for bug bounty hunting with Burp Suite**
+**Structured bug bounty report templates for Burp Suite**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-238636?style=flat-square)](LICENSE)
-[![Burp Suite](https://img.shields.io/badge/Burp_Suite-Community_&_Pro-FF6633?style=flat-square)](https://portswigger.net/burp)
+[![Platform](https://img.shields.io/badge/Platform-Burp%20Suite-orange?style=flat-square)](https://portswigger.net/burp)
 
-Built by [AliceLabs LLC](https://alicelabs.site) · handle: `ulkoro`
-
-</div>
+Pre-built, structured report templates for the most common web vulnerabilities — drop them into Burp Suite's note fields and fill in the blanks. No more scrambling to remember CVSS scores or remediation steps mid-engagement.
 
 ---
 
-## Why
+## Included templates
 
-Every bug bounty hunter wastes time formatting findings for reports. These templates give you copy-paste-ready markdown structures for every common vulnerability class, pre-filled with CVSS vectors, CWE references, and remediation guidance.
+| Template | Vulnerability | Severity |
+|----------|--------------|----------|
+| `SSRF.md` | Server-Side Request Forgery | High / Critical |
+| `IDOR.md` | Insecure Direct Object Reference | Medium / High |
+| `XSS.md` | Cross-Site Scripting (Reflected, Stored, DOM) | Medium / High |
+| `AUTH_BYPASS.md` | Authentication Bypass | Critical |
+| `SQLi.md` | SQL Injection | High / Critical |
+| `OPEN_REDIRECT.md` | Open Redirect | Low / Medium |
+| `XXE.md` | XML External Entity Injection | High |
+| `RCE.md` | Remote Code Execution | Critical |
 
-## Templates
-
-| Template | File | Use when |
-|----------|------|----------|
-| **SSRF** | [`ssrf.md`](templates/ssrf.md) | Server-Side Request Forgery — internal network probing, cloud metadata |
-| **IDOR** | [`idor.md`](templates/idor.md) | Insecure Direct Object Reference — unauthorized data access |
-| **XSS** | [`xss.md`](templates/xss.md) | Cross-Site Scripting — reflected, stored, DOM-based |
-| **Auth Bypass** | [`auth-bypass.md`](templates/auth-bypass.md) | Authentication/authorization flaws |
-| **Info Disclosure** | [`info-disclosure.md`](templates/info-disclosure.md) | Sensitive data exposure, verbose errors, stack traces |
-| **Subdomain Takeover** | [`subdomain-takeover.md`](templates/subdomain-takeover.md) | Dangling DNS records, unclaimed services |
-
-## Usage
-
-1. Find a vulnerability during testing
-2. Copy the matching template
-3. Fill in the specific details (URL, parameters, payload, screenshots)
-4. Submit to the bug bounty platform (YesWeHack, Bugcrowd, Intigriti, HackerOne)
+---
 
 ## Template structure
 
-Every template follows this format:
+Every template follows the same format for consistency across reports:
 
 ```markdown
-# [Vulnerability Type] — [Target Endpoint]
+## [VULN-TYPE] — [Target/Endpoint]
 
-## Summary
-One-paragraph description of the vulnerability.
+**Severity:** [Critical / High / Medium / Low / Informational]
+**CVSS Score:** [0.0–10.0] ([Vector String])
+**CWE:** [CWE-XXX]
 
-## Severity
-- CVSS: X.X (Vector string)
-- CWE: CWE-XXX
+### Summary
+[One paragraph description of the vulnerability]
 
-## Steps to Reproduce
-1. Step one
-2. Step two
-3. ...
+### Affected endpoint
+- URL: 
+- Method: 
+- Parameter: 
 
-## Impact
-What an attacker could do.
+### Steps to reproduce
+1. 
+2. 
+3. 
 
-## Proof of Concept
-Request/response, screenshots, or video.
+### Proof of Concept
+\```http
+[Request/Response]
+\```
 
-## Remediation
-How to fix it.
+### Impact
+[What an attacker can achieve]
+
+### Remediation
+[Specific fix guidance]
+
+### References
+- [OWASP link]
+- [CVE if applicable]
 ```
-
-## Platforms tested on
-
-- YesWeHack
-- Bugcrowd
-- Intigriti
-- HackerOne
-
-## License
-
-MIT — use, modify, share freely.
 
 ---
 
-<div align="center">
+## Usage
 
-**From the security research team at [AliceLabs LLC](https://alicelabs.site)**
+### Option A — Copy into Burp Notes
 
-</div>
+1. Open Burp Suite → **Target** tab → right-click a request → **Send to Repeater**
+2. Open the **Notes** tab in any Burp tool
+3. Paste the relevant template and fill in the blanks
+
+### Option B — Use with Burp's Reporting
+
+1. Copy the template into **Burp Scanner** → **Issue definitions** → custom notes
+2. Reference the template when writing manual findings in the **Audit** view
+
+### Option C — CLI quick-copy (macOS/Linux)
+
+```bash
+# Copy SSRF template to clipboard
+cat templates/SSRF.md | pbcopy   # macOS
+cat templates/SSRF.md | xclip    # Linux
+```
+
+---
+
+## Why structured templates?
+
+- **Consistency** — uniform format across all reports on a program
+- **Speed** — skip the blank-page problem mid-engagement
+- **Completeness** — CVSS, CWE, remediation, and references baked in
+- **Client-ready** — templates are written for technical and non-technical audiences
+
+---
+
+## Contributing
+
+Have a template for a vulnerability type not listed here? PRs welcome.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## License
+
+MIT — free to use in personal and commercial engagements.
+
+---
+
+**Built by [AliceLabs LLC](https://alicelabs.site) · Security Research Division**  
+[contacto@alicelabs.site](mailto:contacto@alicelabs.site)

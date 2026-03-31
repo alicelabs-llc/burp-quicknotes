@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate:
+    name: Validate templates
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all template files exist
+        run: |
+          for f in templates/SSRF.md templates/IDOR.md templates/XSS.md templates/AUTH_BYPASS.md; do
+            if [ ! -f "$f" ]; then
+              echo "Missing template: $f"
+              exit 1
+            fi
+          done
+          echo "All templates present ✓"
+
+      - name: Lint markdown
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: 'templates/**/*.md'
+        continue-on-error: true
